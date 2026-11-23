@@ -9,3 +9,5 @@ class Settings:
 
         # RGB, 0 to 255 each.
         self.bg_color = (230, 230, 230)
+
+        self.ship_img = 'resources/ship.bmp'
