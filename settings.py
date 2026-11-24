@@ -11,3 +11,4 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         self.ship_img = 'resources/ship.bmp'
+        self.ship_speed = 5

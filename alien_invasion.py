@@ -30,17 +30,40 @@ class AlienInvasion:
 
         while True:
             self._check_events()
+            self.ship.update()
             # Redraw the screen during each pass through the loop.
             self._update_screen()
             # Cross-platform frame-rate control, 60 fps.
             self.clock.tick(60)
 
     def _check_events(self):
-        """Event-management loop: respond to keyboard and mouse events."""
+        """Event-management loop: respond to keypresses and mouse events."""
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        """Respond to keypresses."""
+
+        if event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = True
+
+    def _check_keyup_events(self, event):
+        """Respond to key releases."""
+
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = False
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
@@ -50,6 +73,7 @@ class AlienInvasion:
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
+
 
 if __name__ == '__main__':
     # Make a game instance, and run the game.
