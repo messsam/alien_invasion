@@ -17,10 +17,9 @@ class AlienInvasion:
         self.clock = pygame.time.Clock()
 
         # Surface object representing the screen. (i.e. display window)
-        self.screen = pygame.display.set_mode((
-            self.settings.screen_width,
-            self.settings.screen_height
-        ))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption('Alien Invasion')
 
         self.ship = Ship(self)
@@ -50,7 +49,7 @@ class AlienInvasion:
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
 
-        if event.key == pygame.K_q:
+        if event.key == pygame.K_ESCAPE:
             sys.exit()
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = True
