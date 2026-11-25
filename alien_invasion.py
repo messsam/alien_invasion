@@ -17,7 +17,7 @@ class AlienInvasion:
 
         self.clock = pygame.time.Clock()
 
-        # Surface object representing the screen. (i.e. display window)
+        # Surface object representing the display screen (i.e. window).
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
@@ -32,8 +32,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            # Automatically call update() for each sprite in the group.
-            self.bullets.update()
+            self._update_bullets()
             # Redraw the screen during each pass through the loop.
             self._update_screen()
             # Cross-platform frame-rate control, 60 fps.
@@ -72,8 +71,20 @@ class AlienInvasion:
 
     def _shoot_bullet(self):
         """Create a new bullet and add it to the bullets group."""
-        self.bullets.add(Bullet(self))
 
+        if len(self.bullets) < self.settings.bullets_allowed:
+            self.bullets.add(Bullet(self))
+    
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+
+        # Automatically call update() for each sprite in the group, updating bullet positions.
+        self.bullets.update()
+        # Garbage collection: remove bullets that have disappeared.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+    
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
 
