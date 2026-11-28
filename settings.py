@@ -12,11 +12,15 @@ class Settings:
 
         # Ship settings
         self.ship_img = 'resources/ship.bmp'
-        self.ship_speed = 5
+        self.ship_speed = 5.5
+
+        # Aliens settings
+        self.alien_img = 'resources/alien.bmp'
+        self.alien_speed = 2.5
 
         # Bullet settings
-        self.bullet_speed = 10
+        self.bullets_allowed = 6
+        self.bullet_speed = 11
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
-        self.bullets_allowed = 5
